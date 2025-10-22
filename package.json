@@ -1,0 +1,20 @@
+{
+  "name": "demo-sermaluc",
+  "version": "1.0.0",
+  "description": "Sistema de movimientos financieros",
+  "scripts": {
+    "dev": "docker-compose up -d",
+    "dev:build": "docker-compose up -d --build",
+    "stop": "docker-compose down",
+    "restart": "docker-compose restart",
+    "logs": "docker-compose logs",
+    "logs:backend": "docker-compose logs backend",
+    "logs:frontend": "docker-compose logs frontend",
+    "logs:db": "docker-compose logs postgres",
+    "clean": "docker-compose down -v --remove-orphans",
+    "db:connect": "docker exec -it sermaluc-postgres psql -U postgres -d sermaluc",
+    "backend:shell": "docker exec -it sermaluc-backend sh",
+    "frontend:shell": "docker exec -it sermaluc-frontend sh"
+  },
+  "devDependencies": {}
+}

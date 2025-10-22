@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: sermaluc-postgres
+    environment:
+      POSTGRES_DB: sermaluc
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database:/docker-entrypoint-initdb.d
+    networks:
+      - sermaluc-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d sermaluc"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sermaluc-backend
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=password123
+      - DB_NAME=sermaluc
+      - PORT=3001
+      - NODE_ENV=development
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - sermaluc-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: npm run start:dev
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: sermaluc-frontend
+    environment:
+      - REACT_APP_API_URL=http://localhost:3002/api  # 👈 Actualizar URL
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - sermaluc-network
+    depends_on:
+      - backend
+    command: npm start
+
+  adminer:
+    image: adminer
+    container_name: sermaluc-adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - sermaluc-network
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+
+networks:
+  sermaluc-network:
+    driver: bridge
