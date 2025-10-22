@@ -4,4 +4,5 @@
 
 \i /docker-entrypoint-initdb.d/seeds/movements-seed.sql
 
-SELECT 'Base de datos configurada correctamente con Docker' as status;
+SELECT 'Inicialización completada correctamente' as mensaje;
+SELECT COUNT(*) as total_movimientos FROM movements;

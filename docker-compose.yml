@@ -20,11 +20,12 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 30s
 
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     container_name: sermaluc-backend
     environment:
       - DB_HOST=postgres
@@ -44,18 +45,19 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    restart: unless-stopped
     command: npm run start:dev
 
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     container_name: sermaluc-frontend
     environment:
-      - REACT_APP_API_URL=http://localhost:3002/api  # 👈 Actualizar URL
+      - VITE_API_URL=http://localhost:3001/api
       - CHOKIDAR_USEPOLLING=true
     ports:
-      - "3000:3000"
+      - "5173:5173"
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -63,7 +65,8 @@ services:
       - sermaluc-network
     depends_on:
       - backend
-    command: npm start
+    restart: unless-stopped
+    command: npm run dev -- --host 0.0.0.0 --port 5173
 
   adminer:
     image: adminer
@@ -73,7 +76,9 @@ services:
     networks:
       - sermaluc-network
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
 
 volumes:
   postgres_data:
