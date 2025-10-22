@@ -50,10 +50,10 @@ export class MovementRepository {
     const result = await this.repository
       .createQueryBuilder('movement')
       .select([
-        'SUM(CASE WHEN movement.tipo = :credito THEN movement.monto ELSE 0 END) as totalcreditos',
-        'SUM(CASE WHEN movement.tipo = :debito THEN ABS(movement.monto) ELSE 0 END) as totaldebitos',
+        'SUM(CASE WHEN movement.tipo = :credito THEN movement.monto ELSE 0 END) as total_creditos',
+        'SUM(CASE WHEN movement.tipo = :debito THEN ABS(movement.monto) ELSE 0 END) as total_debitos',
         'SUM(movement.monto) as balance',
-        'COUNT(*) as totalmovements',
+        'COUNT(*) as total_movimientos',
       ])
       .setParameters({
         credito: MovementType.CREDITO,
