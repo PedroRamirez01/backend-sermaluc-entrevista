@@ -33,10 +33,11 @@ services:
       - DB_USERNAME=postgres
       - DB_PASSWORD=password123
       - DB_NAME=sermaluc
-      - PORT=3001
+      - PORT=8000
       - NODE_ENV=development
+      - HOST=0.0.0.0
     ports:
-      - "3001:3001"
+      - "8000:8000"
     volumes:
       - ./backend:/app
       - /app/node_modules
@@ -46,6 +47,12 @@ services:
       postgres:
         condition: service_healthy
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/api/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     command: npm run start:dev
 
   frontend:
@@ -54,7 +61,7 @@ services:
       dockerfile: dockerfile
     container_name: sermaluc-frontend
     environment:
-      - VITE_API_URL=http://localhost:3001/api
+      - VITE_API_URL=http://localhost:8000/api
       - CHOKIDAR_USEPOLLING=true
     ports:
       - "5173:5173"
@@ -64,7 +71,10 @@ services:
     networks:
       - sermaluc-network
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
     restart: unless-stopped
     command: npm run dev -- --host 0.0.0.0 --port 5173
 

@@ -26,9 +26,10 @@ async function bootstrap() {
 
     app.setGlobalPrefix('api');
 
-    const port = process.env.PORT || 3001;
-    await app.listen(port);
-    console.log(`Servidor corriendo en http://localhost:${port}/api`);
+    const port = process.env.PORT || 8000;
+    const host = '127.0.0.1';
+    await app.listen(port, host);
+    console.log(`Servidor corriendo en http://${host}:${port}/api`);
   } catch (error) {
     console.error('Error al iniciar la aplicación:', error);
     process.exit(1);
