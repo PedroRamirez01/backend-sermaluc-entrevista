@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MovementsModule } from './movements/movements.module';
+import { ReportsModule } from './reports/reports.module';
 import { databaseConfig } from './config/database.config';
 import { appConfig } from './config/app.config';
 import { HealthModule } from './health/health.module';
@@ -16,6 +17,7 @@ import { HealthModule } from './health/health.module';
     }),
     TypeOrmModule.forRoot(databaseConfig),
     MovementsModule,
+    ReportsModule,
     HealthModule,
   ],
   controllers: [AppController],

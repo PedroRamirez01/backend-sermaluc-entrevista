@@ -22,18 +22,30 @@ export class Movement {
   @Column({
     type: 'enum',
     enum: MovementType,
+    enumName: 'movement_type',
   })
   tipo: MovementType;
 
-  @Column('decimal', { precision: 12, scale: 2 })
+  @Column('decimal', { precision: 15, scale: 2 })
   monto: number;
 
-  @Column({ type: 'text', nullable: true })
+  @Column({
+    type: 'varchar',
+    length: 255,
+    nullable: true,
+    name: 'descripcion',
+  })
   descripcion?: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({
+    type: 'timestamptz',
+    name: 'created_at',
+  })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({
+    type: 'timestamptz',
+    name: 'updated_at',
+  })
   updatedAt: Date;
 }

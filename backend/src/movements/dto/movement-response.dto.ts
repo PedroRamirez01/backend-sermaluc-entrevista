@@ -27,7 +27,7 @@ export class MovementResponseDto {
         : movement.fecha;
     this.tipo = movement.tipo;
     this.monto = Number(movement.monto);
-    this.descripcion = movement.descripcion;
+    this.descripcion = movement.descripcion || 'Sin descripción';
     this.createdAt =
       movement.createdAt instanceof Date
         ? movement.createdAt.toISOString()

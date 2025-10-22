@@ -8,6 +8,6 @@ export const databaseConfig: TypeOrmModuleOptions = {
   password: process.env.DB_PASSWORD || 'password123',
   database: process.env.DB_NAME || 'sermaluc',
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-  synchronize: process.env.NODE_ENV !== 'production',
+  synchronize: false,
   logging: process.env.NODE_ENV === 'development',
 };

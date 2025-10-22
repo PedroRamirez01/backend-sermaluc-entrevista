@@ -24,50 +24,14 @@
 ### 1. Clonar el repositorio
 
 ```bash
-git clone <repository-url>
-cd demo-sermaluc
+git clone https://github.com/PedroRamirez01/sermaluc-prueba-tecnica.git
+cd sermaluc-prueba-tecnica
 ```
 
-### 2. Configurar Backend
+### 2. Runnear docker-compose
 
 ```bash
-cd backend
-npm install
+docker-compose up -d --build
 ```
 
-### 3. Configurar Variables de Entorno
-
-Crear archivo `.env` en `/backend`:
-
-```env
-# Database
-DB_HOST=localhost
-DB_PORT=5432
-DB_USERNAME=postgres
-DB_PASSWORD=tu_password
-DB_NAME=sermaluc
-
-# Application
-PORT=3001
-NODE_ENV=development
-```
-
-### 4. Configurar Base de Datos
-
-```bash
-# Crear la base de datos
-createdb sermaluc
-
-# Ejecutar migraciones
-cd backend/src/database
-psql -U postgres -d sermaluc -f scripts/setup-database.sql
-```
-
-### 5. Ejecutar la aplicación
-
-```bash
-cd backend
-npm run start:dev
-```
-
-La API estará disponible en: `http://localhost:3001/api`
+La API estará disponible en: `http://localhost:8000/api`
