@@ -48,13 +48,18 @@ export const MovementForm: React.FC<MovementFormProps> = ({ onMovementCreated })
         setMessage(null);
 
         try {
-            if (data.tipo === 'DEBITO' && data.monto > 0) {
-                data.monto = -Math.abs(data.monto);
-            } else if (data.tipo === 'CREDITO' && data.monto < 0) {
-                data.monto = Math.abs(data.monto);
+            const monto = Number(data.monto);
+
+            if (isNaN(monto) || monto <= 0) {
+                throw new Error('El monto debe ser un número positivo válido');
             }
 
-            const response = await movementsApi.create(data);
+            const movementData = {
+                ...data,
+                monto: data.tipo === 'DEBITO' ? -Math.abs(monto) : Math.abs(monto)
+            };
+
+            const response = await movementsApi.create(movementData);
 
             if (response.success) {
                 setMessage({ type: 'success', text: response.message || 'Movimiento creado exitosamente' });
