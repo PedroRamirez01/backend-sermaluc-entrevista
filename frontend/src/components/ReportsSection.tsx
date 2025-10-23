@@ -73,9 +73,9 @@ export const ReportsSection: React.FC = () => {
     };
 
     const formatCurrency = (amount: number): string => {
-        return new Intl.NumberFormat("es-ES", {
+        return new Intl.NumberFormat("es-CL", {
             style: "currency",
-            currency: "EUR",
+            currency: "CLP",
             minimumFractionDigits: 2,
         }).format(amount);
     };
@@ -238,8 +238,8 @@ export const ReportsSection: React.FC = () => {
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
                                     Período:{" "}
-                                    {new Date(report.fecha_inicio).toLocaleDateString("es-ES")} -{" "}
-                                    {new Date(report.fecha_fin).toLocaleDateString("es-ES")}
+                                    {new Date(report.fecha_inicio).toLocaleDateString("es-CL")} -{" "}
+                                    {new Date(report.fecha_fin).toLocaleDateString("es-CL")}
                                 </Typography>
                             </Box>
 

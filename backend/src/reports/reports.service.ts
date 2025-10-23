@@ -120,16 +120,16 @@ export class ReportsService {
 ═══════════════════════════════════════════════════════════════
 
 PERÍODO: ${monthName} ${year}
-FECHA DE GENERACIÓN: ${new Date().toLocaleString('es-ES')}
-RANGO: ${new Date(reportData.fecha_inicio).toLocaleDateString('es-ES')} - ${new Date(reportData.fecha_fin).toLocaleDateString('es-ES')}
+FECHA DE GENERACIÓN: ${new Date().toLocaleString('es-CL')}
+RANGO: ${new Date(reportData.fecha_inicio).toLocaleDateString('es-CL')} - ${new Date(reportData.fecha_fin).toLocaleDateString('es-CL')}
 
 ───────────────────────────────────────────────────────────────
                            RESUMEN FINANCIERO
 ───────────────────────────────────────────────────────────────
 
-Total Créditos:      ${reportData.total_creditos.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
-Total Débitos:       ${reportData.total_debitos.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
-Balance Final:       ${reportData.balance.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
+Total Créditos:      ${reportData.total_creditos.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' })}
+Total Débitos:       ${reportData.total_debitos.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' })}
+Balance Final:       ${reportData.balance.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' })}
 
 ───────────────────────────────────────────────────────────────
                         DETALLE DE MOVIMIENTOS

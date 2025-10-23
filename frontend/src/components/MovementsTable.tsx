@@ -66,9 +66,9 @@ export const MovementsTable: React.FC<MovementsTableProps> = ({ refreshTrigger }
     }, [refreshTrigger]);
 
     const formatCurrency = (amount: number): string => {
-        return new Intl.NumberFormat('es-ES', {
+        return new Intl.NumberFormat('es-CL', {
             style: 'currency',
-            currency: 'EUR',
+            currency: 'CLP',
             minimumFractionDigits: 2,
         }).format(amount);
     };
