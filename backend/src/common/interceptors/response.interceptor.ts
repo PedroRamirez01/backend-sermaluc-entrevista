@@ -24,7 +24,6 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
 
     return next.handle().pipe(
       map((data: unknown) => {
-        // Check if data is an object and has success property
         if (
           data &&
           typeof data === 'object' &&
