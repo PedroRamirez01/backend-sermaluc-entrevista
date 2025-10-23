@@ -17,7 +17,7 @@
 
 - Node.js 18+ 
 - PostgreSQL 14+
-- npm o yarn
+- npm
 
 ## ⚙️ Instalación
 
@@ -34,4 +34,4 @@ cd sermaluc-prueba-tecnica
 docker-compose up -d --build
 ```
 
-La API estará disponible en: `http://localhost:8000/api`
+La vista completa estara disponible en `http://localhost:5173/`
